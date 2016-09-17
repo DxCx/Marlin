@@ -408,16 +408,16 @@
 #define DELTA_SMOOTH_ROD_OFFSET 151.0 // mm
 
 // Horizontal offset of the universal joints on the end effector.
-#define DELTA_EFFECTOR_OFFSET 24.0 // mm
+#define DELTA_EFFECTOR_OFFSET 20.0 // mm
 
 // Horizontal offset of the universal joints on the carriages.
-#define DELTA_CARRIAGE_OFFSET 22.0 // mm
+#define DELTA_CARRIAGE_OFFSET 11.7 // mm
 
 // Horizontal distance bridged by diagonal push rods when effector is centered.
 #define DELTA_RADIUS (DELTA_SMOOTH_ROD_OFFSET-(DELTA_EFFECTOR_OFFSET)-(DELTA_CARRIAGE_OFFSET))
 
 // Print surface diameter/2 minus unreachable space (avoid collisions with vertical towers).
-#define DELTA_PRINTABLE_RADIUS 90.0
+#define DELTA_PRINTABLE_RADIUS 70.0
 
 // Delta calibration menu
 // uncomment to add three points calibration menu option.
@@ -464,7 +464,7 @@
 // Mechanical endstop with COM to ground and NC to Signal uses "false" here (most common setup).
 #define X_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
 #define Y_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
-#define Z_MIN_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
+#define Z_MIN_ENDSTOP_INVERTING true // set to true to invert the logic of the endstop.
 #define X_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
 #define Y_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
 #define Z_MAX_ENDSTOP_INVERTING false // set to true to invert the logic of the endstop.
@@ -519,7 +519,7 @@
 //    O-- FRONT --+
 //  (0,0)
 #define X_PROBE_OFFSET_FROM_EXTRUDER 0     // X offset: -left  +right  [of the nozzle]
-#define Y_PROBE_OFFSET_FROM_EXTRUDER -10   // Y offset: -front +behind [the nozzle]
+#define Y_PROBE_OFFSET_FROM_EXTRUDER 10   // Y offset: -front +behind [the nozzle]
 #define Z_PROBE_OFFSET_FROM_EXTRUDER -3.5  // Z offset: -below +above  [the nozzle]
 
 // X and Y axis travel speed (mm/m) between probes
@@ -624,13 +624,13 @@
 //#define DISABLE_Z_MIN_PROBE_ENDSTOP
 
 // Enable Z Probe Repeatability test to see how accurate your probe is
-//#define Z_MIN_PROBE_REPEATABILITY_TEST
+#define Z_MIN_PROBE_REPEATABILITY_TEST
 
 //
 // Probe Raise options provide clearance for the probe to deploy, stow, and travel.
 //
-#define Z_PROBE_DEPLOY_HEIGHT 50 // Raise to make room for the probe to deploy / stow
-#define Z_PROBE_TRAVEL_HEIGHT 5  // Raise between probing points.
+#define Z_PROBE_DEPLOY_HEIGHT 10 // Raise to make room for the probe to deploy / stow
+#define Z_PROBE_TRAVEL_HEIGHT 10  // Raise between probing points.
 
 //
 // For M851 give a range for adjusting the Z probe offset
@@ -685,7 +685,7 @@
 #define Y_HOME_DIR 1
 #define Z_HOME_DIR 1
 
-#define min_software_endstops true // If true, axis won't move to coordinates less than HOME_POS.
+#define min_software_endstops true // If true, axis won't move to coordinates less than `_POS.
 #define max_software_endstops true  // If true, axis won't move to coordinates greater than the defined lengths below.
 
 // @section machine
@@ -723,9 +723,9 @@ const bool FIL_RUNOUT_INVERTING = false; // set to true to invert the logic of t
 #define MESH_NUM_Y_POINTS 3
 #define MESH_HOME_SEARCH_Z 4  // Z after Home, bed somewhere below but above 0.0.
 
-//#define MESH_G28_REST_ORIGIN // After homing all axes ('G28' or 'G28 XYZ') rest at origin [0,0,0]
+#define MESH_G28_REST_ORIGIN // After homing all axes ('G28' or 'G28 XYZ') rest at origin [0,0,0]
 
-//#define MANUAL_BED_LEVELING  // Add display menu option for bed leveling.
+#define MANUAL_BED_LEVELING  // Add display menu option for bed leveling.
 
 #if ENABLED(MANUAL_BED_LEVELING)
 #define MBL_Z_STEP 0.025  // Step size while manually probing Z axis.
@@ -778,7 +778,9 @@ const bool FIL_RUNOUT_INVERTING = false; // set to true to invert the logic of t
 // Compensate by interpolating between the nearest four Z probe values for each point.
 // Useful for deltas where the print surface may appear like a bowl or dome shape.
 // Works best with AUTO_BED_LEVELING_GRID_POINTS 5 or higher.
-#define AUTO_BED_LEVELING_GRID_POINTS 9
+// TODO: Return to 9
+// #define AUTO_BED_LEVELING_GRID_POINTS 9
+#define AUTO_BED_LEVELING_GRID_POINTS 3
 
 #else  // !AUTO_BED_LEVELING_GRID
 
@@ -811,7 +813,7 @@ const bool FIL_RUNOUT_INVERTING = false; // set to true to invert the logic of t
 // For DELTA this is the top-center of the Cartesian print volume.
 //#define MANUAL_X_HOME_POS 0
 //#define MANUAL_Y_HOME_POS 0
-#define MANUAL_Z_HOME_POS 250 // Distance between the nozzle to printbed after homing
+#define MANUAL_Z_HOME_POS 300   // Distance between the nozzle to printbed after homing
 
 // Use "Z Safe Homing" to avoid homing with a Z probe outside the bed area.
 //
@@ -839,7 +841,13 @@ const bool FIL_RUNOUT_INVERTING = false; // set to true to invert the logic of t
 
 // default settings
 // delta speeds must be the same on xyz
-#define DEFAULT_AXIS_STEPS_PER_UNIT   {80, 80, 80, 760*1.1}  // default steps per unit for Kossel (GT2, 20 tooth)
+#define XYZ_FULL_STEPS_PER_ROTATION 200
+#define XYZ_MICROSTEPS 16 //步进驱动的细分数
+#define XYZ_BELT_PITCH 2 //同步带齿间距
+#define XYZ_PULLEY_TEETH 16 //同步轮齿数
+#define XYZ_STEPS (XYZ_FULL_STEPS_PER_ROTATION * XYZ_MICROSTEPS / double(XYZ_BELT_PITCH) / double(XYZ_PULLEY_TEETH))
+
+#define DEFAULT_AXIS_STEPS_PER_UNIT   {XYZ_STEPS, XYZ_STEPS, XYZ_STEPS, 150}  // default steps per unit for Kossel (GT2, 20 tooth)
 #define DEFAULT_MAX_FEEDRATE          {200, 200, 200, 200}   
 #define DEFAULT_MAX_ACCELERATION      {3000,3000,3000,3000} 
 
@@ -901,12 +909,12 @@ const bool FIL_RUNOUT_INVERTING = false; // set to true to invert the logic of t
 // @section temperature
 
 // Preheat Constants
-#define PREHEAT_1_TEMP_HOTEND 180
-#define PREHEAT_1_TEMP_BED     70
+#define PREHEAT_1_TEMP_HOTEND 200
+#define PREHEAT_1_TEMP_BED     0
 #define PREHEAT_1_FAN_SPEED   255 // Value from 0 to 255
 
 #define PREHEAT_2_TEMP_HOTEND 240
-#define PREHEAT_2_TEMP_BED    100
+#define PREHEAT_2_TEMP_BED     0
 #define PREHEAT_2_FAN_SPEED   255 // Value from 0 to 255
 
 //
