@@ -529,7 +529,7 @@
 // Speed for the "accurate" probe of each point
 #define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 2)
 // Use double touch for probing
-//#define PROBE_DOUBLE_TOUCH
+#define PROBE_DOUBLE_TOUCH
 
 // Allen key retractable z-probe as seen on many Kossel delta printers - http://reprap.org/wiki/Kossel#Automatic_bed_leveling_probe
 // Deploys by touching z-axis belt. Retracts by pushing the probe down. Uses Z_MIN_PIN.
@@ -624,13 +624,13 @@
 //#define DISABLE_Z_MIN_PROBE_ENDSTOP
 
 // Enable Z Probe Repeatability test to see how accurate your probe is
-#define Z_MIN_PROBE_REPEATABILITY_TEST
+// #define Z_MIN_PROBE_REPEATABILITY_TEST
 
 //
 // Probe Raise options provide clearance for the probe to deploy, stow, and travel.
 //
-#define Z_PROBE_DEPLOY_HEIGHT 10 // Raise to make room for the probe to deploy / stow
-#define Z_PROBE_TRAVEL_HEIGHT 10  // Raise between probing points.
+#define Z_PROBE_DEPLOY_HEIGHT 0 // Raise to make room for the probe to deploy / stow
+#define Z_PROBE_TRAVEL_HEIGHT 50  // Raise between probing points.
 
 //
 // For M851 give a range for adjusting the Z probe offset
@@ -780,7 +780,7 @@ const bool FIL_RUNOUT_INVERTING = false; // set to true to invert the logic of t
 // Works best with AUTO_BED_LEVELING_GRID_POINTS 5 or higher.
 // TODO: Return to 9
 // #define AUTO_BED_LEVELING_GRID_POINTS 9
-#define AUTO_BED_LEVELING_GRID_POINTS 3
+#define AUTO_BED_LEVELING_GRID_POINTS 5
 
 #else  // !AUTO_BED_LEVELING_GRID
 
