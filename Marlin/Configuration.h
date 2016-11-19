@@ -229,7 +229,7 @@
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
-#define TEMP_SENSOR_BED 0
+#define TEMP_SENSOR_BED 5
 
 // This makes temp sensor 1 a redundant sensor for sensor 0. If the temperatures difference between these sensors is to high the print will be aborted.
 //#define TEMP_SENSOR_1_AS_REDUNDANT
@@ -373,7 +373,7 @@
 */
 
 #define THERMAL_PROTECTION_HOTENDS // Enable thermal protection for all extruders
-// #define THERMAL_PROTECTION_BED     // Enable thermal protection for the heated bed
+#define THERMAL_PROTECTION_BED     // Enable thermal protection for the heated bed
 
 //===========================================================================
 //============================= Mechanical Settings =========================
@@ -803,7 +803,6 @@ const bool FIL_RUNOUT_INVERTING = false; // set to true to invert the logic of t
 
 #endif // AUTO_BED_LEVELING_FEATURE
 
-
 // @section homing
 
 // The center of the bed is at (X=0, Y=0)
@@ -829,7 +828,6 @@ const bool FIL_RUNOUT_INVERTING = false; // set to true to invert the logic of t
 #define Z_SAFE_HOMING_X_POINT ((X_MIN_POS + X_MAX_POS) / 2)    // X point for Z homing when homing all axis (G28).
 #define Z_SAFE_HOMING_Y_POINT ((Y_MIN_POS + Y_MAX_POS) / 2)    // Y point for Z homing when homing all axis (G28).
 #endif
-
 
 // Delta only homes to Z
 #define HOMING_FEEDRATE_Z  (200*60)
@@ -859,7 +857,6 @@ const bool FIL_RUNOUT_INVERTING = false; // set to true to invert the logic of t
 #define DEFAULT_XYJERK                20.0    // (mm/sec)
 #define DEFAULT_ZJERK                 20.0    // (mm/sec) Must be same as XY for delta
 #define DEFAULT_EJERK                 20.0     // (mm/sec)
-
 
 //=============================================================================
 //============================= Additional Features ===========================
@@ -910,11 +907,11 @@ const bool FIL_RUNOUT_INVERTING = false; // set to true to invert the logic of t
 
 // Preheat Constants
 #define PREHEAT_1_TEMP_HOTEND 200
-#define PREHEAT_1_TEMP_BED     0
+#define PREHEAT_1_TEMP_BED     60
 #define PREHEAT_1_FAN_SPEED   255 // Value from 0 to 255
 
 #define PREHEAT_2_TEMP_HOTEND 240
-#define PREHEAT_2_TEMP_BED     0
+#define PREHEAT_2_TEMP_BED    110
 #define PREHEAT_2_FAN_SPEED   255 // Value from 0 to 255
 
 //
